@@ -1,0 +1,36 @@
+# https://docs.microsoft.com/en-us/rest/api/power-bi/
+# 7f67af8a-fedc-4b08-8b4e-37c4d127b6cf = GlobalCloud PBI Desktop Client
+
+@baseUrl = https://api.powerbi.com/v1.0/myorg
+# @baseUrl = https://api.powerbi.com/beta/myorg
+
+@groupId = 5176f617-bf38-4168-bed1-6072be7d332e
+@datasetId = b36a0a41-3f55-45b0-bda2-6a6f26493d71
+
+####
+
+# @name refreshes
+POST {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+Content-Type: application/json
+
+{
+  "type": "full",
+  "commitMode": "transactional",
+  "objects": [
+    {
+      "table": "Transactional",
+      "partition": "2021"
+    }
+  ],
+  "applyRefreshPolicy": "false"
+}
+
+# @refreshesLocation = {{refreshes.response.headers.Location}}
+# @refreshId = {{refreshes.response.headers.RequestId}}
+@refreshId = 8dcace35-37f1-46f0-b3f6-29130b68a836
+
+###
+
+GET {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes/{{refreshId}}
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
