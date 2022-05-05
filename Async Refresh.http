@@ -27,8 +27,7 @@ Content-Type: application/json
 }
 
 # @refreshesLocation = {{refreshes.response.headers.Location}}
-# @refreshId = {{refreshes.response.headers.RequestId}}
-@refreshId = 8dcace35-37f1-46f0-b3f6-29130b68a836
+@refreshId = {{refreshes.response.headers.RequestId}}
 
 ###
 
