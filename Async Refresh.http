@@ -16,29 +16,15 @@ Content-Type: application/json
 
 {
   {
-    "type": "Automatic",
-    "commitMode": "Transactional",
-    "applyRefreshPolicy": "True"
+    "type": "ClearValues"
   },
   {
-    "type": "Full",
-    "commitMode": "PartialBatch",
-    "applyRefreshPolicy": "False",
-    "objects": [
-      {
-        "table": "Batch Master",
-        "partition": "2022Q20531"
-      },
-      {
-        "table": "Batch Master",
-        "partition": "2022Q20531"
-      }
-    ]
+    "type": "Automatic"
   }
 }
 
 # @refreshesLocation = {{refreshes.response.headers.Location}}
-# @refreshId = a9b3dd3e-7f49-488f-8ab0-52dd84d705e5
+# @refreshId = 05086e06-a510-45d5-b7b5-8435ff61214a
 @refreshId = {{refreshes.response.headers.RequestId}}
 
 ###
@@ -54,4 +40,4 @@ Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/
 ###
 
 GET {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes?$top=10
-Authorization: Bearer {{$aadV2Token new scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
