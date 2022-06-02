@@ -5,7 +5,7 @@
 # @baseUrl = https://api.powerbi.com/beta/myorg
 
 @groupId = 5176f617-bf38-4168-bed1-6072be7d332e
-@datasetId = b36a0a41-3f55-45b0-bda2-6a6f26493d71
+@datasetId = 08bb7318-0d74-4516-885a-ee4cb9d76fe4
 
 ####
 
@@ -15,22 +15,43 @@ Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/
 Content-Type: application/json
 
 {
-  "type": "full",
-  "commitMode": "transactional",
-  "objects": [
-    {
-      "table": "Transactional",
-      "partition": "2021"
-    }
-  ],
-  "applyRefreshPolicy": "false"
+  {
+    "type": "Automatic",
+    "commitMode": "Transactional",
+    "applyRefreshPolicy": "True"
+  },
+  {
+    "type": "Full",
+    "commitMode": "PartialBatch",
+    "applyRefreshPolicy": "False",
+    "objects": [
+      {
+        "table": "Batch Master",
+        "partition": "2022Q20531"
+      },
+      {
+        "table": "Batch Master",
+        "partition": "2022Q20531"
+      }
+    ]
+  }
 }
 
 # @refreshesLocation = {{refreshes.response.headers.Location}}
-# @refreshId = 4d5b179b-7962-4604-8bfb-3a441388c97a
+# @refreshId = a9b3dd3e-7f49-488f-8ab0-52dd84d705e5
 @refreshId = {{refreshes.response.headers.RequestId}}
 
 ###
 
 GET {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes/{{refreshId}}
 Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+
+###
+
+DELETE {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes/{{refreshId}}
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+
+###
+
+GET {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes?$top=10
+Authorization: Bearer {{$aadV2Token new scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
