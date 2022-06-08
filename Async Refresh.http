@@ -15,12 +15,19 @@ Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/
 Content-Type: application/json
 
 {
-  {
-    "type": "ClearValues"
-  },
-  {
-    "type": "Automatic"
-  }
+  "type": "Full",
+  "commitMode": "PartialBatch",
+  "applyRefreshPolicy": "False",
+  "objects": [
+    {
+      "table": "Batch Master",
+      "partition": "2022Q20531"
+    },
+    {
+      "table": "Batch Master",
+      "partition": "2022Q20531"
+    }
+  ]
 }
 
 # @refreshesLocation = {{refreshes.response.headers.Location}}
