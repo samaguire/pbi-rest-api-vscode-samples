@@ -1,0 +1,47 @@
+# https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
+
+POST https://login.microsoftonline.com/common/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=7f67af8a-fedc-4b08-8b4e-37c4d127b6cf
+&tenant=tandg.global
+&grant_type=password
+&username=maguires@tang.global
+&password=Sam1Mag2Alf0
+&resource=https://analysis.windows.net/powerbi/api
+
+###
+
+POST https://login.microsoftonline.com/tandg.global/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=7f67af8a-fedc-4b08-8b4e-37c4d127b6cf
+&scope=https://analysis.windows.net/powerbi/api/.default
+&grant_type=password
+&username=maguires@tandg.global
+&password=Sam1Mag2Alf0
+
+###
+
+POST https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+Content-Type: application/x-www-form-urlencoded
+
+tenant=tandg.global
+&client_id=7f67af8a-fedc-4b08-8b4e-37c4d127b6cf
+&scope=https://analysis.windows.net/powerbi/api/.default
+&redirect_uri=http%3A%2F%2Flocalhost%2Fmyapp%2F
+&grant_type=password
+&username=maguires@tandg.global
+&password=Sam1Mag2Alf0
+
+###
+
+POST https://login.microsoftonline.com/common/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password
+&username=powerbiservice@tandg.global
+&password=WxwS97zLS6akZcG3x
+&client_id=7f67af8a-fedc-4b08-8b4e-37c4d127b6cf
+&resource=https://analysis.windows.net/powerbi/api
+&tenant=c10e1a41-3219-4b97-ba6a-c0ba6eca1490

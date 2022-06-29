@@ -1,0 +1,10 @@
+# https://docs.microsoft.com/en-us/rest/api/power-bi/
+# 7f67af8a-fedc-4b08-8b4e-37c4d127b6cf = GlobalCloud PBI Desktop Client
+
+@baseUrl = https://api.powerbi.com/v1.0/myorg
+# @baseUrl = https://api.powerbi.com/beta/myorg
+
+####
+
+GET {{baseUrl}}/admin/activityevents?startDateTime='2022-06-24T00:00:00.000Z'&endDateTime='2022-06-24T23:59:59.999Z'&$filter=UserId eq 'maguires@tandg.global'
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
