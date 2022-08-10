@@ -6,10 +6,13 @@
 
 @groupId = 5176f617-bf38-4168-bed1-6072be7d332e
 @datasetId = 08bb7318-0d74-4516-885a-ee4cb9d76fe4
+@dataflowId = 96cf272a-6da7-4e5f-b5dd-68b9865d377b
+@datamartId = 2f2640f4-3ae9-4d96-a3be-f85e50bba093
 
-####
 
-# @name refreshes
+#### Start async Dataset refresh
+
+# @name resultDataset
 POST {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes
 Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
 Content-Type: application/json
@@ -32,19 +35,44 @@ Content-Type: application/json
 
 # @refreshesLocation = {{refreshes.response.headers.Location}}
 # @refreshId = 05086e06-a510-45d5-b7b5-8435ff61214a
-@refreshId = {{refreshes.response.headers.RequestId}}
+@refreshId = {{resultDataset.response.headers.RequestId}}
 
-###
+
+### Get Dataset refresh status
 
 GET {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes/{{refreshId}}
 Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
 
-###
+
+### Cancel Dataset refresh
 
 DELETE {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes/{{refreshId}}
 Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
 
-###
+
+### Get last 10 Dataset refreshes
 
 GET {{baseUrl}}/groups/{{groupId}}/datasets/{{datasetId}}/refreshes?$top=10
 Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+
+
+#### Start Dataflow refresh
+
+# @name resultDataflow
+POST {{baseUrl}}/groups/{{groupId}}/datasets/{{dataflowId}}/refreshes
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+
+# @refreshesLocation = {{refreshes.response.headers.Location}}
+# @refreshId = 05086e06-a510-45d5-b7b5-8435ff61214a
+@refreshId = {{resultDataflow.response.headers.RequestId}}
+
+
+#### Start Datamart refresh
+
+# @name resultDatamart
+POST {{baseUrl}}/groups/{{groupId}}/datamart/{{datamartId}}/refresh
+Authorization: Bearer {{$aadV2Token scopes:https://analysis.windows.net/powerbi/api/.default tenantId:tandg.global clientId:7f67af8a-fedc-4b08-8b4e-37c4d127b6cf}}
+
+# @refreshesLocation = {{refreshes.response.headers.Location}}
+# @refreshId = 05086e06-a510-45d5-b7b5-8435ff61214a
+@refreshId = {{resultDatamart.response.headers.RequestId}}
